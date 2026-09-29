@@ -6,7 +6,7 @@
 <title>Fulfillment Ops</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500&display=swap" rel="stylesheet">
 <style>
 :root{
   --background:#F7F7F5;--foreground:#21201F;--card:#FFFFFF;
@@ -469,6 +469,231 @@ kbd{font:400 11px/1 var(--mono);border:1px solid var(--border);border-radius:var
   .board{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation:none!important;transition:none!important} }
+
+/* =====================================================================
+   VISUAL POLISH LAYER · premium basics retail (Quince-like)
+   Same behavior, new skin. Everything below overrides the base tokens.
+   Principles: black is the human voice, slate navy is the Copilot,
+   earth tones carry status, paper and linen carry the space.
+   ===================================================================== */
+:root{
+  /* ground and ink */
+  --background:#F5F3EF;          /* linen */
+  --card:#FFFFFF;                /* paper */
+  --paper-2:#FBFAF7;             /* Copilot panel */
+  --foreground:#1B1A18;          /* ink */
+  --ink-2:#45423D;
+  --muted-foreground:#6A665F;    /* 5.1:1 on linen */
+  --secondary:#EFECE6;
+  --muted:#E6E2DA;
+  --border:#E3DED5;
+  --border-strong:#D3CDC2;
+  --primary:#1B1A18;
+  /* Copilot voice: slate navy (the human voice is ink) */
+  --accent:#3A4A66;
+  --accent-hover:#2C3950;
+  --accent-ink:#3A4A66;
+  --accent-tint:#EEF1F6;
+  --ring:#3A4A66;
+  /* status in earth tones, same meanings */
+  --rec-fg:#2F5E3F;--rec-bg:#E7EFE8;--rec-solid:#5E8C69;
+  --risk-fg:#7A5412;--risk-bg:#F4EAD7;--risk-solid:#C29A52;
+  --inv-fg:#2C4A66;--inv-bg:#E5ECF2;--inv-solid:#6D8CAA;
+  --blk-fg:#4A463F;--blk-bg:#ECE8E1;--blk-solid:#8E877B;
+  --esc-fg:#8E2E22;--esc-bg:#F5E4DF;--esc-solid:#B5573F;
+  --res-fg:#5A564F;--res-solid:#D5CFC4;
+  --success-fg:#2F5E3F;--success-bg:#E7EFE8;
+  --warning-fg:#7A5412;
+  --error-fg:#9A3226;
+  --lane-needs:var(--foreground);
+  --step-todo:#E6E2DA;
+  --radius:3px;
+  /* type */
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"Hanken Grotesk",ui-sans-serif,system-ui,sans-serif; /* data now sets in the sans with tabular figures */
+  --code:"IBM Plex Mono",ui-monospace,monospace;              /* monospace kept only for IDs and source tags */
+}
+body{font:400 13.5px/1.5 var(--sans);letter-spacing:.005em;font-variant-numeric:tabular-nums}
+.mono,.num,.fv,.val,.nbadge,.ct,.ts,.tm,.due,.n{font-variant-numeric:tabular-nums lining-nums}
+.idl,.fid,.ctx,.src,kbd,.msg-ai pre{font-family:var(--code)}
+::selection{background:#DCE2EC;color:var(--foreground)}
+
+/* labels: quieter tracking, sentence rhythm */
+.label{font:500 10.5px/1.2 var(--sans);letter-spacing:.1em;color:var(--muted-foreground)}
+
+/* buttons: ink primary, paper secondary */
+.btn{height:36px;border-color:var(--border-strong);font-weight:500;letter-spacing:.01em;border-radius:var(--radius)}
+.btn:hover{border-color:var(--foreground)}
+.btn-primary{background:var(--foreground);border-color:var(--foreground);color:#fff}
+.btn-primary:hover{background:#000;border-color:#000}
+.btn-ghost,.btn-ghost:hover{border-color:transparent}
+.btn-ghost:hover{background:var(--secondary)}
+.btn-sm{height:30px}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
+
+/* top bar */
+.top{height:60px;border-bottom-color:var(--border);gap:32px;padding:0 28px}
+.wordmark{font:400 22px/1 var(--serif);letter-spacing:-.01em}
+.nav{gap:22px}
+.nav button{font-size:13.5px;color:var(--muted-foreground)}
+.nav button[aria-current="page"]{color:var(--foreground);font-weight:500;box-shadow:inset 0 -2px 0 var(--foreground)}
+.nbadge{font:500 11px/1 var(--sans);background:var(--secondary);color:var(--ink-2);padding:3px 6px;border-radius:10px}
+.nbadge.hot{background:var(--foreground);color:#fff}
+@keyframes bflash{50%{background:var(--accent);color:#fff}}
+.search{height:38px;background:var(--background);border-color:transparent;border-radius:var(--radius)}
+.search:focus-within{background:var(--card);border-color:var(--border-strong)}
+.clock{font-size:12.5px;color:var(--muted-foreground)}
+
+/* main column gets more air */
+.main{padding:28px 32px 40px;gap:24px}
+
+/* facility chips: quiet outlines, ink when chosen */
+.fchip{height:34px;border-color:var(--border);background:transparent;font-weight:500;padding:0 10px 0 14px}
+.fchip:hover{background:var(--card);border-color:var(--border-strong)}
+.fchip .ct{font:500 11px/1 var(--sans);background:transparent;color:var(--muted-foreground);padding:0}
+.fchip[aria-pressed="true"] .ct{background:transparent;color:#BDB8AE}
+
+/* stat row: hairline rhythm, serif figures */
+.stats{gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat{padding:18px 20px 18px 0;gap:6px}
+.stat + .stat{padding-left:24px;border-left:1px solid var(--border)}
+.stat .val{font:300 36px/1 var(--serif);letter-spacing:-.02em}
+.stat .d{font-size:12.5px}
+
+/* recoverability bar */
+.rbar{height:10px;gap:3px}
+.rbar span{border-radius:2px}
+.legend{gap:8px 22px;font-size:12.5px}
+.legend i{width:9px;height:9px;border-radius:2px}
+.legend b{font:600 12.5px var(--sans)}
+
+/* toolbar */
+.selw{height:30px;border-color:var(--border-strong);border-radius:var(--radius)}
+.tag{height:30px;border-color:var(--border-strong);border-radius:15px;padding:0 10px 0 12px}
+.fpop,.opop,.menu,.demo{border-color:var(--border);border-radius:4px;box-shadow:0 12px 28px -8px rgba(27,26,24,.18),0 2px 6px rgba(27,26,24,.06)}
+.tchip{height:30px;border-color:var(--border-strong);border-radius:15px}
+
+/* table: paper sheet, hairlines only, no zebra */
+.tbl{border-color:var(--border);border-radius:4px;box-shadow:0 1px 2px rgba(27,26,24,.04)}
+.head{background:var(--card);border-bottom:1px solid var(--border-strong)}
+.th{font:500 10.5px/1.2 var(--sans);letter-spacing:.1em}
+.line{border-bottom-color:var(--border)}
+.line.z{background:transparent}
+.line.row:hover{background:#FAF9F6}
+.line.sel,.line.sel:hover{background:var(--accent-tint);box-shadow:inset 2px 0 0 var(--accent)}
+@keyframes rflash{from{background:var(--accent-tint)}}
+.cols{padding:15px 16px;gap:14px}
+.head .cols{padding:0 16px}
+.rt{font-weight:600;font-size:14px;letter-spacing:-.005em}
+.item{font-size:13px;color:var(--ink-2)}
+.idl{font-size:10.5px;letter-spacing:.02em}
+.cell .num{font:500 14.5px/1.35 var(--sans)}
+.cell .c{font-size:12.5px}
+.gh{background:var(--background);padding:10px 16px}
+.gh .label{color:var(--foreground)}
+.gh .n{font:400 12px var(--sans)}
+.gh .note{font:italic 400 13.5px/1.3 var(--serif)}
+.ocell{padding-top:14px}
+.rstrip{font-size:12.5px}
+
+/* pills: soft fill plus a whisper of outline */
+.pill{height:24px;padding:0 9px;border-radius:12px;font-size:12px;font-weight:500;box-shadow:inset 0 0 0 1px color-mix(in srgb,currentColor 16%,transparent)}
+.pill.sm{height:21px;border-radius:11px}
+.cell .pill{border-radius:12px}
+.p-res{box-shadow:inset 0 0 0 1px var(--border-strong)}
+.badge{font:600 10px/1 var(--sans);letter-spacing:.08em;padding:4px 6px;border-radius:2px}
+.b-rec{letter-spacing:.04em}
+
+/* avatars */
+.av{font:500 10px/1 var(--sans);letter-spacing:.02em;background:var(--secondary)}
+.av.me{background:var(--foreground)}
+.av.none{border-color:#8A857C;color:#77726A}
+
+/* Copilot panel: paper, a step warmer than the sheet */
+.cp{background:var(--paper-2);border-left-color:var(--border)}
+.cph{background:var(--card);padding:16px 22px;border-bottom-color:var(--border)}
+.cph .l1 .nm{font:600 14.5px var(--sans)}
+.ctx{background:var(--accent-tint);color:var(--accent-ink);font-size:11.5px;padding:4px 8px}
+.cpb{padding:22px 22px 28px;gap:20px}
+.cpf{background:var(--card);border-top-color:var(--border);padding:14px 22px 18px}
+.voice{font:400 16px/1.55 var(--serif);letter-spacing:-.003em}
+.infer{background:#F1EFEA;border-radius:4px;padding:14px 16px}
+.infer .ih .label{color:var(--accent-ink)}
+.rcard{border-color:var(--border);border-radius:4px;padding:16px;box-shadow:0 1px 2px rgba(27,26,24,.04)}
+.rcard .rl .label{color:var(--accent-ink)}
+.hl{font-size:15px;letter-spacing:-.005em}
+.dcard{border:1px solid var(--foreground);border-radius:4px;padding:18px;box-shadow:0 8px 24px -12px rgba(27,26,24,.25)}
+.vcard,.whycard,.nothing{border-color:var(--border);border-radius:4px;background:var(--card)}
+.outcome{border-radius:4px;padding:16px}
+.outcome .oh{font:400 19px/1.35 var(--serif);color:#1F3F2A}
+.ok{border-radius:4px}
+.means{background:#F1EFEA;border-radius:4px;font:400 16px/1.5 var(--serif)}
+.schip{height:30px;border-color:var(--border-strong);border-radius:15px;background:var(--card);padding:0 12px}
+.schip:hover{border-color:var(--accent);color:var(--accent-ink);background:var(--card)}
+.composer{height:42px;border-color:var(--border-strong);border-radius:21px;padding:0 16px}
+.composer:focus-within{border-color:var(--accent)}
+.msg-you{background:var(--secondary);border-radius:12px 12px 2px 12px;padding:9px 13px}
+.facts{gap:9px 14px}
+.facts .fv{font:600 13.5px var(--sans)}
+.src{font-size:10.5px;background:transparent;border:1px solid var(--border);color:var(--muted-foreground);padding:3px 6px}
+.bitem{padding:16px 0}
+.bt{font-size:14.5px;letter-spacing:-.005em}
+.ruled{border-bottom-color:var(--border-strong)}
+
+/* Follow-through board */
+.bstats{gap:0}
+.bstats .stat{padding:0 28px 0 0}
+.bstats .stat + .stat{padding-left:28px;border-left:1px solid var(--border)}
+.stall{background:var(--card);border:1px solid var(--border);border-radius:4px;font:400 15.5px/1.5 var(--serif);padding:14px 16px}
+.lane-h{border-bottom-width:2px}
+.lane-empty{border-color:var(--border-strong);border-radius:4px;background:transparent}
+.fcard{border-color:var(--border);border-radius:4px;padding:14px;gap:10px;box-shadow:0 1px 2px rgba(27,26,24,.04);transition:border-color .15s,box-shadow .15s}
+.fcard:hover{border-color:var(--border-strong);box-shadow:0 6px 16px -10px rgba(27,26,24,.25)}
+.fcard.sel{border-color:var(--accent);background:var(--card);box-shadow:inset 2px 0 0 var(--accent),0 6px 16px -10px rgba(58,74,102,.35)}
+@keyframes cflash{from{background:var(--accent-tint)}to{background:var(--card)}}
+.fcard .fh{font:400 17px/1.3 var(--serif);letter-spacing:-.005em}
+.steps{gap:3px}
+.steps i{height:3px;border-radius:2px}
+.steps i.cur.you{background:var(--foreground)}
+.fnote{background:var(--background);border-radius:3px}
+.rtitle{font:400 22px/1.3 var(--serif);letter-spacing:-.01em}
+.sstrip{border-color:var(--border);border-radius:4px;background:var(--card)}
+
+/* toast: ink card, bottom right */
+.toast{background:var(--foreground);color:#F5F3EF;border-color:var(--foreground);border-radius:4px;box-shadow:0 12px 28px -8px rgba(27,26,24,.35)}
+.toast .btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.toast .btn:hover{border-color:#fff}
+.toast .btn-ghost{border-color:transparent;color:#CFCAC0}
+.toast .sdot{background:#E0B76A}
+.toast.okay .sdot{background:#9CC3A5}
+
+/* modal */
+.modal{border-radius:6px;padding:26px;box-shadow:0 24px 48px -16px rgba(27,26,24,.35)}
+.modal h2{font:400 22px var(--serif)}
+.scrim{background:rgba(27,26,24,.36)}
+
+/* switch */
+.switch[aria-checked="true"] .sw{background:var(--foreground)}
+
+/* sign in: the storefront moment */
+.login{background:var(--background)}
+.lcard{border-color:var(--border);border-radius:6px;padding:40px 36px;gap:18px;box-shadow:0 20px 40px -24px rgba(27,26,24,.25)}
+.lcard .wm{font:400 30px/1 var(--serif);letter-spacing:-.015em}
+.lcard .sub{font-size:14.5px;line-height:1.5}
+.field input{height:44px;border-color:var(--border-strong);border-radius:var(--radius)}
+.field input:focus{border-color:var(--foreground);box-shadow:0 0 0 1px var(--foreground)}
+.lfac{font:500 11px var(--sans);letter-spacing:.14em;text-transform:uppercase}
+
+@media (max-width:1439px){ .cols{padding:14px 14px} .head .cols{padding:0 14px} }
+
+/* collapsed rail · option B: app mark with a notification */
+.rail{background:var(--paper-2);gap:16px;padding-top:14px}
+.rail-app{position:relative;width:38px;height:38px;border-radius:10px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px -4px rgba(58,74,102,.55);transition:background .15s,transform .15s}
+.rail-app:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.rail-app .mark{color:#fff}
+.rail-badge{position:absolute;top:-6px;right:-7px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--foreground);color:#fff;font:600 10.5px/18px var(--sans);text-align:center;box-shadow:0 0 0 2px var(--paper-2)}
+.rail-key{font:500 10px/1 var(--sans);color:var(--muted-foreground);background:transparent;border:1px solid var(--border-strong);border-radius:3px;padding:3px 5px}
 </style>
 </head>
 <body>
@@ -1509,8 +1734,8 @@ function renderCopilot(m, c){
     const badge = r.name === 'ft' ? c.needsYou : 3;
     return `<aside class="cp" aria-label="Copilot"><div class="rail ${U.cpJust ? 'fade-in' : ''}">
       <button class="btn btn-ghost" style="width:34px;height:34px;padding:0" data-action="openCp" aria-label="Show Copilot">${I.expand}</button>
-      <button class="open" data-action="openCp" aria-label="Open Copilot">${I.mark(16)}<span class="vt">Copilot</span></button>
-      <span class="rbadge ${r.name === 'ft' && badge ? 'hot' : ''}" title="${r.name === 'ft' ? 'Need you' : 'Suggestions'}">${badge}</span>
+      <button class="rail-app" data-action="openCp" aria-label="Open Copilot${badge ? `, ${badge} ${r.name === 'ft' ? 'need you' : 'suggestions'}` : ''}" title="Copilot${badge ? ` · ${badge} ${r.name === 'ft' ? 'need you' : 'suggestions'}` : ''}">${I.mark(18)}${badge ? `<span class="rail-badge">${badge}</span>` : ''}</button>
+      <kbd class="rail-key" aria-hidden="true" title="Press / to ask the Copilot">/</kbd>
     </div></aside>`;
   }
   const sel = r.id;
